@@ -10,8 +10,8 @@ INSERT INTO RESTAURANT (NAME)
 VALUES ('Трезвая утка'),
        ('Сытый гусь');
 
-INSERT INTO MEAL (NAME, DATE_TIME, REST_ID)
-VALUES ('Салат', now(), 1),
-       ('Курица', now(), 1),
-       ('Брускета', now(), 2),
-       ('Суп', now(), 2);
+INSERT INTO MEAL (NAME, PRICE, DATE_MEAL, REST_ID)
+VALUES ('Салат', 100, now(), 1),
+       ('Курица', 200, now(), 1),
+       ('Брускета', 150, now(), 2),
+       ('Суп', 100, now(), 2);

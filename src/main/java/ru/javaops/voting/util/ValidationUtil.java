@@ -11,4 +11,11 @@ public class ValidationUtil {
             throw new IllegalRequestDataException(bean.getClass().getSimpleName() + " must be new (id=null)");
         }
     }
+
+    public static <T> T checkExisted(T obj, int id) {
+        if (obj == null) {
+            throw new IllegalRequestDataException("Entity with id=" + id + " not found");
+        }
+        return obj;
+    }
 }
