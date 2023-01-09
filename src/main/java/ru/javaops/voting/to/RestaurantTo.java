@@ -6,7 +6,9 @@ import lombok.Value;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class RestaurantTo extends NamedTo {
-    public RestaurantTo(Integer id, String name) {
+    int votes;
+    public RestaurantTo(Integer id, String name, int votes) {
         super(id, name);
+        this.votes = votes;
     }
 }

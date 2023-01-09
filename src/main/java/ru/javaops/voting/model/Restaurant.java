@@ -1,6 +1,5 @@
 package ru.javaops.voting.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,6 +25,6 @@ public class Restaurant extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @OrderBy("name ASC")
     private List<Item> items;
 }

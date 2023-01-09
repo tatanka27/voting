@@ -10,20 +10,20 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "voice", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "rest_id", "date_time"}, name = "voice_unique_user_rest_datetime_idx")})
+@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "rest_id", "date_time"}, name = "voice_unique_user_rest_datetime_idx")})
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Voice extends BaseEntity {
+public class Vote extends BaseEntity {
     @Column(name = "date_time", nullable = false)
     @NotNull
     private LocalDateTime dateTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rest_id", nullable = false)
     private Restaurant restaurant;
 }
