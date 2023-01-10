@@ -13,7 +13,6 @@ import ru.javaops.voting.repository.RestaurantRepository;
 import ru.javaops.voting.service.RestaurantService;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 
 import static ru.javaops.voting.util.ValidationUtil.checkNew;
