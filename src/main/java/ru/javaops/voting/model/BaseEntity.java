@@ -1,5 +1,6 @@
 package ru.javaops.voting.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.util.ProxyUtils;
@@ -16,6 +17,7 @@ public abstract class BaseEntity implements HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(hidden = true)
     protected Integer id;
 
     // doesn't work for hibernate lazy proxy

@@ -13,15 +13,11 @@ import ru.javaops.voting.to.VoteTo;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class VoteController {
-    static final String REST_URL = "/api/restaurants";
-
     VoteService voteService;
 
-
-    @PostMapping
+    @PostMapping("/api/vote")
     @ResponseStatus(HttpStatus.OK)
     public void addVote(@AuthenticationPrincipal AuthUser authUser, @Valid @RequestBody VoteTo voteTo) {
         voteService.addVote(authUser.getUser().id(), voteTo.getRestaurantId(), LocalDateTime.now());
