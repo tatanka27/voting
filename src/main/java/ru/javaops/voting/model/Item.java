@@ -1,6 +1,7 @@
 package ru.javaops.voting.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -28,4 +29,11 @@ public class Item extends NamedEntity {
     @JoinColumn(name = "restaurant_id", nullable = false)
     @JsonIgnore
     private Restaurant restaurant;
+
+    public Item(Integer id, String name, Double price, Restaurant restaurant) {
+        super(id, name);
+        this.price = price;
+        this.dateMenu = LocalDate.now();
+        this.restaurant = restaurant;
+    }
 }

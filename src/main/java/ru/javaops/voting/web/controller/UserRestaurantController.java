@@ -1,4 +1,4 @@
-package ru.javaops.voting.web;
+package ru.javaops.voting.web.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +17,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = UserRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class RestaurantController {
+public class UserRestaurantController {
     static final String REST_URL = "/api/restaurants";
 
     RestaurantRepository restaurantRepository;

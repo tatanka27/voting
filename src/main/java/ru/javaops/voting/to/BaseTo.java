@@ -7,9 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.javaops.voting.HasId;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Data
 public abstract class BaseTo implements HasId {
     @Schema(hidden = true)
     protected Integer id;

@@ -1,4 +1,4 @@
-package ru.javaops.voting.web;
+package ru.javaops.voting.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javaops.voting.model.Restaurant;
 import ru.javaops.voting.repository.RestaurantRepository;
-import ru.javaops.voting.service.RestaurantService;
 
 import java.net.URI;
 import java.util.List;
@@ -25,16 +24,9 @@ public class AdminRestaurantController {
 
     RestaurantRepository restaurantRepository;
 
-    RestaurantService restaurantService;
-
     @GetMapping
     public List<Restaurant> getAll() {
         return restaurantRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
-    }
-
-    @GetMapping("/{id}/with-items")
-    public ResponseEntity<Restaurant> getWithItems(@PathVariable int id) {
-        return ResponseEntity.of(restaurantService.getWithItems(id));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

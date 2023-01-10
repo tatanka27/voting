@@ -25,7 +25,7 @@ public class VoteService {
     VoteRepository voteRepository;
 
     @Transactional
-    public Vote addVote(int userId, int restaurantId, LocalDateTime dateTime) {
+    public void addVote(int userId, int restaurantId, LocalDateTime dateTime) {
         Restaurant restaurant = restaurantRepository.getExisted(restaurantId);
         User user = userRepository.getExisted(userId);
         Vote vote = checkAndGetVote(userId, dateTime);
@@ -35,7 +35,7 @@ public class VoteService {
         } else {
             vote = new Vote(dateTime.toLocalDate(), user, restaurant);
         }
-        return voteRepository.save(vote);
+        voteRepository.save(vote);
     }
 
     private Vote checkAndGetVote(int userId, LocalDateTime dateTime) {

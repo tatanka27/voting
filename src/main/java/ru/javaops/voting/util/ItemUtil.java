@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 import ru.javaops.voting.model.Item;
 import ru.javaops.voting.to.ItemTo;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +16,9 @@ public class ItemUtil {
                 .map(ItemUtil::createTo)
                 .collect(Collectors.toList());
     }
-
+    public static Item createNewFromTo(ItemTo itemTo) {
+        return new Item(null, itemTo.getName(), itemTo.getPrice(), null);
+    }
     public static ItemTo createTo(Item item) {
         return new ItemTo(item.getId(), item.getName(), item.getPrice());
     }

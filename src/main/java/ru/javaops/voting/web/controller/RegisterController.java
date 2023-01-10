@@ -1,4 +1,4 @@
-package ru.javaops.voting.web;
+package ru.javaops.voting.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -13,6 +13,7 @@ import ru.javaops.voting.model.User;
 import ru.javaops.voting.repository.UserRepository;
 import ru.javaops.voting.to.UserTo;
 import ru.javaops.voting.util.UsersUtil;
+import ru.javaops.voting.web.UniqueMailValidator;
 
 import java.net.URI;
 
