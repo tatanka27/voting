@@ -1,6 +1,7 @@
 package ru.javaops.voting.web;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.*;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 @AllArgsConstructor
+@Slf4j
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private final MessageSource messageSource;
 
@@ -38,6 +40,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<?> appException(AppException ex, WebRequest request) {
+        log.error("ApplicationException: {}", ex.getMessage());
         return createProblemDetailExceptionResponse(ex, ex.getStatusCode(), request);
     }
 

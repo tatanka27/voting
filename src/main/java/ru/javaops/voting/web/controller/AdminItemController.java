@@ -2,6 +2,7 @@ package ru.javaops.voting.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import static ru.javaops.voting.util.ValidationUtil.checkNew;
 @RestController
 @RequestMapping(value = AdminItemController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
+@Slf4j
 public class AdminItemController extends ItemController {
     static final String REST_URL = "/api/admin/restaurants/{id}/items";
 
@@ -33,6 +35,7 @@ public class AdminItemController extends ItemController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Item> create(@Valid @RequestBody ItemTo itemTo, @PathVariable int id) {
+        log.info("create item {} for restaurant {}", itemTo, id);
         checkNew(itemTo);
         Item created = itemService.save(ItemUtil.createNewFromTo(itemTo), id);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
