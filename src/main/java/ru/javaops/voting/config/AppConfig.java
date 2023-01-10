@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ProblemDetail;
+import ru.javaops.voting.util.JsonUtil;
 
 import java.util.Map;
 
@@ -27,5 +28,6 @@ public class AppConfig {
         objectMapper.registerModule(new Hibernate5JakartaModule());
         // https://stackoverflow.com/questions/7421474/548473
         objectMapper.addMixIn(ProblemDetail.class, MixIn.class);
+        JsonUtil.setMapper(objectMapper);
     }
 }
