@@ -1,4 +1,4 @@
-package ru.javaops.voting.model;
+package ru.javaops.voting;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.util.Assert;

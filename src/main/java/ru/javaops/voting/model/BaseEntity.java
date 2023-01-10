@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.util.ProxyUtils;
 import org.springframework.util.Assert;
+import ru.javaops.voting.HasId;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)

@@ -1,4 +1,6 @@
-package ru.javaops.voting.model;
+package ru.javaops.voting;
+
+import ru.javaops.voting.HasId;
 
 public interface HasIdAndEmail extends HasId {
     String getEmail();
