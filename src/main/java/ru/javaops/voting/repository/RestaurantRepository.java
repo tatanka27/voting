@@ -15,7 +15,7 @@ import static ru.javaops.voting.util.ValidationUtil.checkExisted;
 
 @Repository
 @Transactional(readOnly = true)
-public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
+public interface RestaurantRepository extends BaseRepository<Restaurant> {
     @Query("""
                     SELECT i.restaurant FROM Item i JOIN i.restaurant
                     WHERE i.dateMenu=:dateMenu
@@ -24,9 +24,4 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
                     ORDER BY i.restaurant.name ASC
             """)
     List<Restaurant> findAllByDate(LocalDate dateMenu);
-
-    default Restaurant getExisted(int id) {
-        return checkExisted(findById(id).orElse(null), id);
-    }
-
 }
