@@ -22,7 +22,6 @@ public class Dish extends NamedEntity {
 
     @Column(name = "date_menu", nullable = false)
     @NotNull
-    @JsonIgnore
     private LocalDate dateMenu;
 
     @ManyToOne(fetch = FetchType.LAZY)

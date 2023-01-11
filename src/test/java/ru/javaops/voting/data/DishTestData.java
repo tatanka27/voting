@@ -28,7 +28,6 @@ public class DishTestData {
 
     public static List<Dish> menu1 = List.of(dish1, dish2);
     public static List<Dish> menu2 = List.of(dish3, dish4, dish5);
-
     public static List<Dish> menu2Today = List.of(dish3, dish4);
     public static List<Dish> menu3 = List.of(dish6);
 

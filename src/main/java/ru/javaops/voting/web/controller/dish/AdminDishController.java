@@ -37,7 +37,7 @@ public class AdminDishController extends DishController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Dish> get(@PathVariable int restaurantId, @PathVariable int id) {
-        return ResponseEntity.of(dishRepository.findById(id));
+        return ResponseEntity.of(dishRepository.get(id, restaurantId));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

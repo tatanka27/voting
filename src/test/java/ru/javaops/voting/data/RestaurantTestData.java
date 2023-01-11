@@ -20,12 +20,10 @@ public class RestaurantTestData {
                         throw new UnsupportedOperationException();
                     });
 
-
     public static final int RESTAURANT1_ID = 1;
     public static final int RESTAURANT2_ID = 2;
     public static final int RESTAURANT3_ID = 3;
     public static final int RESTAURANT4_ID = 4;
-
     public static final int RESTAURANT_NOT_FOUND_ID = 100;
 
     public static Restaurant restaurant1 = new Restaurant(RESTAURANT1_ID, "Трезвая утка");
