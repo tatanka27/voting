@@ -7,11 +7,11 @@ import lombok.Value;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class ItemTo extends NamedTo {
+public class DishTo extends NamedTo {
     @Column(name = "price", nullable = false)
     @NotNull
     Double price;
-    public ItemTo(Integer id, String name, Double price) {
+    public DishTo(Integer id, String name, Double price) {
         super(id, name);
         this.price = price;
     }

@@ -28,7 +28,7 @@ public class Restaurant extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OrderBy("name ASC")
     @Schema(hidden = true)
-    private List<Item> items;
+    private List<Dish> dishes;
 
     public Restaurant(Integer id, String name) {
         super(id);

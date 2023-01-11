@@ -11,17 +11,18 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "item", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name", "date_menu"}, name = "item_unique_rest_name_date_idx")})
+@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name", "date_menu"}, name = "dish")})
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Item extends NamedEntity {
+public class Dish extends NamedEntity {
     @Column(name = "price", nullable = false)
     @NotNull
     private Double price;
 
     @Column(name = "date_menu", nullable = false)
     @NotNull
+    @JsonIgnore
     private LocalDate dateMenu;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,7 +30,13 @@ public class Item extends NamedEntity {
     @JsonIgnore
     private Restaurant restaurant;
 
-    public Item(Integer id, String name, Double price, LocalDate dateMenu) {
+    public Dish(Integer id, String name, Double price) {
+        super(id, name);
+        this.price = price;
+        this.dateMenu = LocalDate.now();
+    }
+
+    public Dish(Integer id, String name, Double price, LocalDate dateMenu) {
         super(id, name);
         this.price = price;
         this.dateMenu = dateMenu;

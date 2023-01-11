@@ -1,10 +1,9 @@
-package ru.javaops.voting.web.controller;
+package ru.javaops.voting.web.controller.restaurant;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +20,27 @@ import static ru.javaops.voting.util.ValidationUtil.checkNew;
 @RequestMapping(value = AdminRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
-public class AdminRestaurantController {
+public class AdminRestaurantController extends RestaurantController {
     static final String REST_URL = "/api/admin/restaurants";
 
     RestaurantRepository restaurantRepository;
 
+    @Override
     @GetMapping
     public List<Restaurant> getAll() {
-        log.info("get all restaurants");
-        return restaurantRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        return super.getAll();
+    }
+
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<Restaurant> get(@PathVariable int id) {
+        return super.get(id);
+    }
+
+    @Override
+    @GetMapping("/{id}/with-dishes")
+    public ResponseEntity<Restaurant> getWithDishes(@PathVariable int id) {
+        return super.getWithDishes(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

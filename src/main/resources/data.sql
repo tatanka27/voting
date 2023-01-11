@@ -12,7 +12,7 @@ VALUES ('Трезвая утка'),
        ('Вкусно и точка'),
        ('Теремок');
 
-INSERT INTO ITEM (NAME, PRICE, DATE_MENU, RESTAURANT_ID)
+INSERT INTO DISH (NAME, PRICE, DATE_MENU, RESTAURANT_ID)
 VALUES ('Салат', 100, now(), 1),
        ('Курица', 200, now(), 1),
        ('Брускета', 150, now(), 2),
