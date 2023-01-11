@@ -1,4 +1,4 @@
-package ru.javaops.voting.web.controller.restaurant;
+package ru.javaops.voting.web.controller.dish;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,44 +6,49 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.javaops.voting.model.Restaurant;
-import ru.javaops.voting.repository.RestaurantRepository;
+import ru.javaops.voting.model.Dish;
+import ru.javaops.voting.repository.DishRepository;
+import ru.javaops.voting.service.DishService;
 import ru.javaops.voting.util.JsonUtil;
 import ru.javaops.voting.web.controller.AbstractControllerTest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.javaops.voting.data.RestaurantTestData.*;
+import static ru.javaops.voting.data.DishTestData.*;
+import static ru.javaops.voting.data.RestaurantTestData.RESTAURANT2_ID;
 import static ru.javaops.voting.data.UserTestData.ADMIN_MAIL;
 import static ru.javaops.voting.data.UserTestData.USER_MAIL;
-import static ru.javaops.voting.web.controller.restaurant.AdminRestaurantController.REST_URL;
+import static ru.javaops.voting.web.controller.dish.AdminDishController.REST_URL;
 
 
-public class AdminRestaurantControllerTest extends AbstractControllerTest {
+public class AdminDishControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL_SLASH = REST_URL + '/';
+    private static final String REST_URL_REST2 = REST_URL.replace("{restaurantId}", String.valueOf(RESTAURANT2_ID));
 
     @Autowired
-    private RestaurantRepository restaurantRepository;
+    DishService dishService;
+
+    @Autowired
+    DishRepository dishRepository;
 
     @Test
     void getUnauthorized() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL_REST2))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getForbidden() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL_REST2))
                 .andExpect(status().isForbidden());
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void getNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + RESTAURANT_NOT_FOUND_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL_REST2 + "/" + DISH_NOT_FOUND_ID))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
@@ -51,53 +56,43 @@ public class AdminRestaurantControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL_REST2))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_MATCHER.contentJson(restaurants));
+                .andExpect(DISH_MATCHER.contentJson(menu2Today));
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + RESTAURANT1_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL_REST2 + "/" + DISH3_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_MATCHER.contentJson(restaurant1));
-    }
-
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
-    void getWithDishes() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + RESTAURANT2_ID + "/with-dishes"))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_WITH_DISHES_MATCHER.contentJson(restaurant2WithMenuToday));
+                .andExpect(DISH_MATCHER.contentJson(dish3));
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void create() throws Exception {
-        Restaurant newRestaurant = getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+        Dish newDish = getNew();
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL_REST2)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newRestaurant)));
+                .content(JsonUtil.writeValue(newDish)));
 
-        Restaurant created = RESTAURANT_MATCHER.readFromJson(action);
+        Dish created = DISH_MATCHER.readFromJson(action);
         int newId = created.id();
-        newRestaurant.setId(newId);
-        RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
-        RESTAURANT_MATCHER.assertMatch(restaurantRepository.getExisted(newId), newRestaurant);
+        newDish.setId(newId);
+        DISH_MATCHER.assertMatch(created, newDish);
+        DISH_MATCHER.assertMatch(dishRepository.getExisted(newId), newDish);
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createInvalid() throws Exception {
-        Restaurant invalid = new Restaurant(null, null);
-        perform(MockMvcRequestBuilders.post(REST_URL)
+        Dish invalid = new Dish(null, null, 100.0);
+        perform(MockMvcRequestBuilders.post(REST_URL_REST2)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid)))
                 .andDo(print())

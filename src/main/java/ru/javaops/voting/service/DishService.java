@@ -10,12 +10,12 @@ import ru.javaops.voting.repository.RestaurantRepository;
 @Service
 @AllArgsConstructor
 public class DishService {
-    private final DishRepository itemRepository;
+    private final DishRepository dishRepository;
     private final RestaurantRepository restaurantRepository;
 
     @Transactional
     public Dish save(Dish item, int restaurantId) {
         item.setRestaurant(restaurantRepository.getExisted(restaurantId));
-        return itemRepository.save(item);
+        return dishRepository.save(item);
     }
 }

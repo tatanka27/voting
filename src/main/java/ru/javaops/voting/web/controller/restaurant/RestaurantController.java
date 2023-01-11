@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.javaops.voting.model.Restaurant;
 import ru.javaops.voting.repository.RestaurantRepository;
+import ru.javaops.voting.service.RestaurantService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,6 +17,9 @@ public abstract class RestaurantController {
 
     @Autowired
     RestaurantRepository restaurantRepository;
+
+    @Autowired
+    RestaurantService restaurantService;
 
     public List<Restaurant> getAll() {
         log.info("get all restaurants");
@@ -29,6 +33,7 @@ public abstract class RestaurantController {
 
     public ResponseEntity<Restaurant> getWithDishes(@PathVariable int id) {
         log.info("get restaurants by id with dishes");
-        return ResponseEntity.of(restaurantRepository.getWithDish(id, LocalDate.now()));
+        Restaurant restaurant = restaurantService.getWithDishes(id, LocalDate.now());
+        return ResponseEntity.ok(restaurant);
     }
 }

@@ -8,7 +8,6 @@ import ru.javaops.voting.error.AppException;
 import ru.javaops.voting.model.Restaurant;
 import ru.javaops.voting.model.User;
 import ru.javaops.voting.model.Vote;
-import ru.javaops.voting.repository.DishRepository;
 import ru.javaops.voting.repository.RestaurantRepository;
 import ru.javaops.voting.repository.UserRepository;
 import ru.javaops.voting.repository.VoteRepository;
@@ -20,11 +19,7 @@ import java.time.LocalDateTime;
 public class VoteService {
 
     RestaurantRepository restaurantRepository;
-
-    DishRepository itemRepository;
-
     UserRepository userRepository;
-
     VoteRepository voteRepository;
 
     @Transactional

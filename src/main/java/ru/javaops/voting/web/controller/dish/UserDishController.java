@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping(value = UserDishController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserDishController extends DishController {
-    static final String REST_URL = "/api/restaurants/{id}/items";
+    static final String REST_URL = "/api/restaurants/{id}/dishes";
 
     @Override
     @GetMapping
