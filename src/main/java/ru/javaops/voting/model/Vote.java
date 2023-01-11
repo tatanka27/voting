@@ -2,6 +2,7 @@ package ru.javaops.voting.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -12,11 +13,10 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Vote extends BaseEntity {
     @Column(name = "date_vote", nullable = false)
     @NotNull
-    private LocalDate dateVote = LocalDate.now();
+    private LocalDate dateVote;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -27,4 +27,11 @@ public class Vote extends BaseEntity {
     @JoinColumn(name = "rest_id", nullable = false)
     @JsonIgnore
     private Restaurant restaurant;
+
+    public Vote(Integer id, LocalDate dateVote, User user, Restaurant restaurant) {
+        super(id);
+        this.dateVote = dateVote;
+        this.user = user;
+        this.restaurant = restaurant;
+    }
 }

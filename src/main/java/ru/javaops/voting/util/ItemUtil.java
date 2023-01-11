@@ -17,7 +17,7 @@ public class ItemUtil {
                 .collect(Collectors.toList());
     }
     public static Item createNewFromTo(ItemTo itemTo) {
-        return new Item(null, itemTo.getName(), itemTo.getPrice(), null);
+        return new Item(null, itemTo.getName(), itemTo.getPrice(), LocalDate.now());
     }
     public static ItemTo createTo(Item item) {
         return new ItemTo(item.getId(), item.getName(), item.getPrice());

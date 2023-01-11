@@ -8,6 +8,7 @@ import ru.javaops.voting.error.AppException;
 import ru.javaops.voting.model.Restaurant;
 import ru.javaops.voting.model.User;
 import ru.javaops.voting.model.Vote;
+import ru.javaops.voting.repository.ItemRepository;
 import ru.javaops.voting.repository.RestaurantRepository;
 import ru.javaops.voting.repository.UserRepository;
 import ru.javaops.voting.repository.VoteRepository;
@@ -20,6 +21,8 @@ public class VoteService {
 
     RestaurantRepository restaurantRepository;
 
+    ItemRepository itemRepository;
+
     UserRepository userRepository;
 
     VoteRepository voteRepository;
@@ -27,13 +30,17 @@ public class VoteService {
     @Transactional
     public void addVote(int userId, int restaurantId, LocalDateTime dateTime) {
         Restaurant restaurant = restaurantRepository.getExisted(restaurantId);
+        if (itemRepository.getByRestIdAndDateMenu(restaurantId, dateTime.toLocalDate()).isEmpty()) {
+            throw new AppException(HttpStatus.BAD_REQUEST, String.format("You can't vote for restaurant: %s", restaurant.getName()));
+        }
+
         User user = userRepository.getExisted(userId);
         Vote vote = checkAndGetVote(userId, dateTime);
 
         if (vote != null) {
             vote.setRestaurant(restaurant);
         } else {
-            vote = new Vote(dateTime.toLocalDate(), user, restaurant);
+            vote = new Vote(null, dateTime.toLocalDate(), user, restaurant);
         }
         voteRepository.save(vote);
     }

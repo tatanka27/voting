@@ -29,4 +29,9 @@ public class Restaurant extends BaseEntity {
     @OrderBy("name ASC")
     @Schema(hidden = true)
     private List<Item> items;
+
+    public Restaurant(Integer id, String name) {
+        super(id);
+        this.name = name;
+    }
 }
