@@ -21,5 +21,4 @@ VALUES ('Салат', 100, now(), 1),
        ('Омлет', 100, convert('1900-01-01', date), 3);
 
 INSERT INTO VOTE (DATE_VOTE, REST_ID, USER_ID)
-VALUES (now(), 1, 1),
-       (now(), 2, 2);
+VALUES (now(), 1, 1);

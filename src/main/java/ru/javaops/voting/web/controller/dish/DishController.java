@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 public abstract class DishController {
     @Autowired
-    DishRepository dishRepository;
+    protected DishRepository dishRepository;
 
     public List<DishTo> getAll(@PathVariable int id) {
         log.info("get all items for restaurant {}", id);

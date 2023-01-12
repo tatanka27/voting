@@ -1,8 +1,8 @@
 package ru.javaops.voting.util;
 
 import lombok.experimental.UtilityClass;
-import ru.javaops.voting.error.IllegalRequestDataException;
 import ru.javaops.voting.HasId;
+import ru.javaops.voting.error.IllegalRequestDataException;
 
 @UtilityClass
 public class ValidationUtil {

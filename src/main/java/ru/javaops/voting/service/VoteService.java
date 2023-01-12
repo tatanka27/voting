@@ -18,12 +18,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class VoteService {
 
-    RestaurantRepository restaurantRepository;
-    UserRepository userRepository;
-    VoteRepository voteRepository;
+    private final RestaurantRepository restaurantRepository;
+    private final UserRepository userRepository;
+    private final VoteRepository voteRepository;
 
     @Transactional
-    public void addVote(int userId, int restaurantId, LocalDateTime dateTime) {
+    public Vote addVote(int userId, int restaurantId, LocalDateTime dateTime) {
         Restaurant restaurant = restaurantRepository.getExisted(restaurantId);
         User user = userRepository.getExisted(userId);
         Vote vote = checkAndGetVote(userId, dateTime);
@@ -33,7 +33,7 @@ public class VoteService {
         } else {
             vote = new Vote(null, dateTime.toLocalDate(), user, restaurant);
         }
-        voteRepository.save(vote);
+        return voteRepository.save(vote);
     }
 
     private Vote checkAndGetVote(int userId, LocalDateTime dateTime) {

@@ -9,10 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javaops.voting.model.Dish;
-import ru.javaops.voting.repository.DishRepository;
 import ru.javaops.voting.service.DishService;
 import ru.javaops.voting.to.DishTo;
-import ru.javaops.voting.util.DishUtil;
 
 import java.net.URI;
 import java.util.List;
@@ -26,8 +24,7 @@ import static ru.javaops.voting.util.ValidationUtil.checkNew;
 public class AdminDishController extends DishController {
     static final String REST_URL = "/api/admin/restaurants/{restaurantId}/dishes";
 
-    DishService dishService;
-    DishRepository dishRepository;
+    private DishService dishService;
 
     @Override
     @GetMapping
@@ -41,10 +38,10 @@ public class AdminDishController extends DishController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> create(@PathVariable int restaurantId, @Valid @RequestBody DishTo dishTo) {
-        log.info("create dish {} for restaurant {}", dishTo, restaurantId);
-        checkNew(dishTo);
-        Dish created = dishService.save(DishUtil.createNewFromTo(dishTo), restaurantId);
+    public ResponseEntity<Dish> create(@PathVariable int restaurantId, @Valid @RequestBody Dish dish) {
+        log.info("create dish {} for restaurant {}", dish, restaurantId);
+        checkNew(dish);
+        Dish created = dishService.save(dish, restaurantId);
         String url = REST_URL.replace("{restaurantId}", String.valueOf(restaurantId));
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(url + "/{id}")

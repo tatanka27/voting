@@ -19,7 +19,6 @@ import static ru.javaops.voting.data.UserTestData.ADMIN_MAIL;
 import static ru.javaops.voting.data.UserTestData.USER_MAIL;
 import static ru.javaops.voting.web.controller.restaurant.AdminRestaurantController.REST_URL;
 
-
 public class AdminRestaurantControllerTest extends AbstractControllerTest {
 
     private static final String REST_URL_SLASH = REST_URL + '/';

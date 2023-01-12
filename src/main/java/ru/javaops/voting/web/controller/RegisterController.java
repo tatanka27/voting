@@ -27,14 +27,15 @@ import static ru.javaops.voting.util.ValidationUtil.checkNew;
 public class RegisterController {
     static final String REST_URL = "/api/register";
 
-    protected UserRepository repository;
 
+    private UserRepository repository;
     private UniqueMailValidator emailValidator;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(emailValidator);
     }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<User> register(@Valid @RequestBody UserTo userTo) {

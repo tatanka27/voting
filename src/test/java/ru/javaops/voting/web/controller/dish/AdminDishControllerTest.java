@@ -8,7 +8,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.javaops.voting.model.Dish;
 import ru.javaops.voting.repository.DishRepository;
-import ru.javaops.voting.service.DishService;
 import ru.javaops.voting.util.JsonUtil;
 import ru.javaops.voting.web.controller.AbstractControllerTest;
 
@@ -21,13 +20,9 @@ import static ru.javaops.voting.data.UserTestData.ADMIN_MAIL;
 import static ru.javaops.voting.data.UserTestData.USER_MAIL;
 import static ru.javaops.voting.web.controller.dish.AdminDishController.REST_URL;
 
-
 public class AdminDishControllerTest extends AbstractControllerTest {
 
     private static final String REST_URL_REST2 = REST_URL.replace("{restaurantId}", String.valueOf(RESTAURANT2_ID));
-
-    @Autowired
-    DishService dishService;
 
     @Autowired
     DishRepository dishRepository;

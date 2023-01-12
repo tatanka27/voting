@@ -1,6 +1,18 @@
 package ru.javaops.voting.to;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 
-public record VoteTo(@NotNull Integer restaurantId) {
+@Value
+@EqualsAndHashCode(callSuper = true)
+public class VoteTo extends BaseTo {
+
+    @NotNull
+    Integer restaurantId;
+
+    public VoteTo(Integer id, Integer restaurantId) {
+        super(id);
+        this.restaurantId = restaurantId;
+    }
 }

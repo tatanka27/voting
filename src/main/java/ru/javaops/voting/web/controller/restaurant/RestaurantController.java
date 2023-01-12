@@ -16,10 +16,10 @@ import java.util.List;
 public abstract class RestaurantController {
 
     @Autowired
-    RestaurantRepository restaurantRepository;
+    protected RestaurantRepository restaurantRepository;
 
     @Autowired
-    RestaurantService restaurantService;
+    protected RestaurantService restaurantService;
 
     public List<Restaurant> getAll() {
         log.info("get all restaurants");
