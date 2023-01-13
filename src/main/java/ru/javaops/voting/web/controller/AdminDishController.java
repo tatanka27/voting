@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +28,12 @@ public class AdminDishController {
 
     @GetMapping
     public List<Dish> getAll() {
-        return dishRepository.findAll();
+        return dishRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Dish> get(@PathVariable int id) {
-        return ResponseEntity.ok(dishRepository.get(id));
+        return ResponseEntity.of(dishRepository.findById(id));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

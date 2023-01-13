@@ -1,6 +1,5 @@
 package ru.javaops.voting.web;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,6 @@ public class UniqueMailValidator implements org.springframework.validation.Valid
     public static final String EXCEPTION_DUPLICATE_EMAIL = "User with this email already exists";
 
     private final UserRepository repository;
-    private final HttpServletRequest request;
 
     @Override
     public boolean supports(@NonNull Class<?> clazz) {

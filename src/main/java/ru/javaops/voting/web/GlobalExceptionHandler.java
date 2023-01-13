@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -36,6 +37,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.setProperty("invalid_params", invalidParams);
         body.setStatus(HttpStatus.UNPROCESSABLE_ENTITY);
         return handleExceptionInternal(ex, body, headers, HttpStatus.UNPROCESSABLE_ENTITY, request);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<?> dataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
+        log.error("DataIntegrityViolationException: {}", ex.getMessage());
+        return createProblemDetailExceptionResponse(ex, HttpStatus.CONFLICT, request);
     }
 
     @ExceptionHandler(AppException.class)

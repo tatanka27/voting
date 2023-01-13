@@ -22,7 +22,6 @@ public class VoteService {
     private final UserRepository userRepository;
     private final VoteRepository voteRepository;
 
-
     @Transactional
     public Vote addVote(int userId, int restaurantId, LocalDateTime dateTime) {
         Vote vote = checkAndGetVote(userId, dateTime);

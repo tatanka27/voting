@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_vote", "user_id", "rest_id"}, name = "vote_unique_date_user_rest_date_idx")})
+@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_vote", "user_id", "restaurant_id"}, name = "vote_unique_date_user_rest_idx")})
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,7 +26,7 @@ public class Vote extends BaseEntity {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rest_id", nullable = false)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     public Vote(Integer id, LocalDate dateVote, User user, Restaurant restaurant) {

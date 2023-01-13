@@ -1,24 +1,18 @@
 package ru.javaops.voting.data;
 
 import ru.javaops.voting.model.Restaurant;
+import ru.javaops.voting.to.RestaurantTo;
 import ru.javaops.voting.web.MatcherFactory;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class RestaurantTestData {
 
     public static final MatcherFactory.Matcher<Restaurant> RESTAURANT_MATCHER =
-            MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dishes");
+            MatcherFactory.usingEqualsComparator(Restaurant.class);
 
-    public static MatcherFactory.Matcher<Restaurant> RESTAURANT_WITH_DISHES_MATCHER =
-            MatcherFactory.usingAssertions(Restaurant.class,
-                    (a, e) -> assertThat(a).usingRecursiveComparison()
-                            .ignoringFields("dishes.restaurant").isEqualTo(e),
-                    (a, e) -> {
-                        throw new UnsupportedOperationException();
-                    });
+    public static final MatcherFactory.Matcher<RestaurantTo> RESTAURANT_WITH_MENU_MATCHER =
+            MatcherFactory.usingEqualsComparator(RestaurantTo.class);
 
     public static final int RESTAURANT1_ID = 1;
     public static final int RESTAURANT2_ID = 2;
@@ -34,12 +28,6 @@ public class RestaurantTestData {
 
     public static List<Restaurant> restaurants = List.of(restaurant3, restaurant2, restaurant4, restaurant1);
 
-    static {
-        restaurant1.setDishes(DishTestData.menu1);
-        restaurant2.setDishes(DishTestData.menu2);
-        restaurant2WithMenuToday.setDishes(DishTestData.menu2Today);
-        restaurant3.setDishes(DishTestData.menu3);
-    }
 
     public static Restaurant getNew() {
         return new Restaurant(null, "New");

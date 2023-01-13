@@ -21,12 +21,9 @@ VALUES ('Салат', 100),
        ('Омлет', 100);
 
 INSERT INTO MENU (DATE_MENU, RESTAURANT_ID, DISH_ID)
-VALUES (now(), 1, 1),
-       (now(), 1, 2),
-       (now(), 2, 3),
-       (now(), 2, 4),
+VALUES (convert(now(), date), 1, 1),
+       (convert(now(), date), 1, 2),
+       (convert(now(), date), 2, 3),
+       (convert(now(), date), 2, 4),
        (convert('1900-01-01', date), 2, 5),
        (convert('1900-01-01', date), 3, 6);
-
-INSERT INTO VOTE (DATE_VOTE, REST_ID, USER_ID)
-VALUES (now(), 1, 1);

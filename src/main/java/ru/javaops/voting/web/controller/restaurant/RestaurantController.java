@@ -10,7 +10,6 @@ import ru.javaops.voting.repository.RestaurantRepository;
 import ru.javaops.voting.service.RestaurantService;
 import ru.javaops.voting.to.RestaurantTo;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -34,7 +33,7 @@ public abstract class RestaurantController {
 
     public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id) {
         log.info("get restaurants {} by id with menu", id);
-        RestaurantTo restaurantTo = restaurantService.getWithMenu(id, LocalDate.now());
+        RestaurantTo restaurantTo = restaurantService.getWithMenu(id);
         return ResponseEntity.ok(restaurantTo);
     }
 }

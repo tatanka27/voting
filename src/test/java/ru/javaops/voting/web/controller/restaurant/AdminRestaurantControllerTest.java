@@ -8,12 +8,15 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.javaops.voting.model.Restaurant;
 import ru.javaops.voting.repository.RestaurantRepository;
+import ru.javaops.voting.to.RestaurantTo;
 import ru.javaops.voting.util.JsonUtil;
+import ru.javaops.voting.util.RestaurantUtil;
 import ru.javaops.voting.web.controller.AbstractControllerTest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.javaops.voting.data.MenuTestDate.menus2Today;
 import static ru.javaops.voting.data.RestaurantTestData.*;
 import static ru.javaops.voting.data.UserTestData.ADMIN_MAIL;
 import static ru.javaops.voting.data.UserTestData.USER_MAIL;
@@ -67,14 +70,16 @@ public class AdminRestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(RESTAURANT_MATCHER.contentJson(restaurant1));
     }
 
+//    @Ignore
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void getWithDishes() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + RESTAURANT2_ID + "/with-dishes"))
+    void getWithMenu() throws Exception {
+        RestaurantTo restaurantTo = RestaurantUtil.createTo(restaurant2, menus2Today);
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + RESTAURANT2_ID + "/with-menu"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_WITH_DISHES_MATCHER.contentJson(restaurant2WithMenuToday));
+                .andExpect(RESTAURANT_WITH_MENU_MATCHER.contentJson(restaurantTo));
     }
 
     @Test
