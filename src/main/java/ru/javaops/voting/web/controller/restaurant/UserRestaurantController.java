@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javaops.voting.model.Restaurant;
+import ru.javaops.voting.to.RestaurantTo;
 
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class UserRestaurantController extends RestaurantController {
     }
 
     @Override
-    @GetMapping("/{id}/with-dishes")
-    public ResponseEntity<Restaurant> getWithDishes(@PathVariable int id) {
-        return super.getWithDishes(id);
+    @GetMapping("/{id}/with-menu")
+    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id) {
+        return super.getWithMenu(id);
     }
 }

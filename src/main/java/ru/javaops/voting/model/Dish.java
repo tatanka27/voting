@@ -1,17 +1,17 @@
 package ru.javaops.voting.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Entity
-@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name", "date_menu"}, name = "dish")})
+@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "price"}, name = "dish_unique_name_price_idx")})
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,24 +20,8 @@ public class Dish extends NamedEntity {
     @NotNull
     private Double price;
 
-    @Column(name = "date_menu", nullable = false)
-    @NotNull
-    private LocalDate dateMenu;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id", nullable = false)
-    @JsonIgnore
-    private Restaurant restaurant;
-
     public Dish(Integer id, String name, Double price) {
         super(id, name);
         this.price = price;
-        this.dateMenu = LocalDate.now();
-    }
-
-    public Dish(Integer id, String name, Double price, LocalDate dateMenu) {
-        super(id, name);
-        this.price = price;
-        this.dateMenu = dateMenu;
     }
 }

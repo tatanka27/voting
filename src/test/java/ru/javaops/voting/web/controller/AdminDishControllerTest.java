@@ -1,4 +1,4 @@
-package ru.javaops.voting.web.controller.dish;
+package ru.javaops.voting.web.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.javaops.voting.model.Dish;
 import ru.javaops.voting.repository.DishRepository;
 import ru.javaops.voting.util.JsonUtil;
-import ru.javaops.voting.web.controller.AbstractControllerTest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -18,7 +17,7 @@ import static ru.javaops.voting.data.DishTestData.*;
 import static ru.javaops.voting.data.RestaurantTestData.RESTAURANT2_ID;
 import static ru.javaops.voting.data.UserTestData.ADMIN_MAIL;
 import static ru.javaops.voting.data.UserTestData.USER_MAIL;
-import static ru.javaops.voting.web.controller.dish.AdminDishController.REST_URL;
+import static ru.javaops.voting.web.controller.AdminDishController.REST_URL;
 
 public class AdminDishControllerTest extends AbstractControllerTest {
 

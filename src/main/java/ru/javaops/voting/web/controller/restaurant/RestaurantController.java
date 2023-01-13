@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import ru.javaops.voting.model.Restaurant;
 import ru.javaops.voting.repository.RestaurantRepository;
 import ru.javaops.voting.service.RestaurantService;
+import ru.javaops.voting.to.RestaurantTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,9 +32,9 @@ public abstract class RestaurantController {
         return ResponseEntity.of(restaurantRepository.findById(id));
     }
 
-    public ResponseEntity<Restaurant> getWithDishes(@PathVariable int id) {
-        log.info("get restaurants by id with dishes");
-        Restaurant restaurant = restaurantService.getWithDishes(id, LocalDate.now());
-        return ResponseEntity.ok(restaurant);
+    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id) {
+        log.info("get restaurants {} by id with menu", id);
+        RestaurantTo restaurantTo = restaurantService.getWithMenu(id, LocalDate.now());
+        return ResponseEntity.ok(restaurantTo);
     }
 }

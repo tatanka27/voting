@@ -1,4 +1,4 @@
-package ru.javaops.voting.web.controller.dish;
+package ru.javaops.voting.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -9,8 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javaops.voting.model.Dish;
-import ru.javaops.voting.service.DishService;
-import ru.javaops.voting.to.DishTo;
+import ru.javaops.voting.repository.DishRepository;
 
 import java.net.URI;
 import java.util.List;
@@ -21,30 +20,28 @@ import static ru.javaops.voting.util.ValidationUtil.checkNew;
 @RequestMapping(value = AdminDishController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
-public class AdminDishController extends DishController {
-    static final String REST_URL = "/api/admin/restaurants/{restaurantId}/dishes";
+public class AdminDishController {
+    static final String REST_URL = "/api/admin/dishes";
 
-    private DishService dishService;
+    private DishRepository dishRepository;
 
-    @Override
     @GetMapping
-    public List<DishTo> getAll(@PathVariable int restaurantId) {
-        return super.getAll(restaurantId);
+    public List<Dish> getAll() {
+        return dishRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dish> get(@PathVariable int restaurantId, @PathVariable int id) {
-        return ResponseEntity.of(dishRepository.get(id, restaurantId));
+    public ResponseEntity<Dish> get(@PathVariable int id) {
+        return ResponseEntity.ok(dishRepository.get(id));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> create(@PathVariable int restaurantId, @Valid @RequestBody Dish dish) {
-        log.info("create dish {} for restaurant {}", dish, restaurantId);
+    public ResponseEntity<Dish> create(@Valid @RequestBody Dish dish) {
+        log.info("create dish {} ", dish);
         checkNew(dish);
-        Dish created = dishService.save(dish, restaurantId);
-        String url = REST_URL.replace("{restaurantId}", String.valueOf(restaurantId));
+        Dish created = dishRepository.save(dish);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(url + "/{id}")
+                .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }

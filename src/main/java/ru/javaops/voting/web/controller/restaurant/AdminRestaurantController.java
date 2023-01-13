@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javaops.voting.model.Restaurant;
+import ru.javaops.voting.to.RestaurantTo;
 
 import java.net.URI;
 import java.util.List;
@@ -32,9 +33,9 @@ public class AdminRestaurantController extends RestaurantController {
     }
 
     @Override
-    @GetMapping("/{id}/with-dishes")
-    public ResponseEntity<Restaurant> getWithDishes(@PathVariable int id) {
-        return super.getWithDishes(id);
+    @GetMapping("/{id}/with-menu")
+    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id) {
+        return super.getWithMenu(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
