@@ -33,7 +33,7 @@ public class AdminMenuController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Menu> addMenu(@Valid @RequestBody MenuTo menuTo) {
-        log.info("create menu {}", menuTo);
+        log.info("add dish {} for restaurant {}", menuTo.getDishId(), menuTo.getRestaurantId());
         checkNew(menuTo);
         Menu created = menuService.addMenu(menuTo, LocalDate.now(clock));
         return ResponseEntity.ok((created));

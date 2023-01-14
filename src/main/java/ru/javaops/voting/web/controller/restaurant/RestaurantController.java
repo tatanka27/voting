@@ -27,12 +27,12 @@ public abstract class RestaurantController {
     }
 
     public ResponseEntity<Restaurant> get(@PathVariable int id) {
-        log.info("get restaurants by id");
+        log.info("get restaurants {}", id);
         return ResponseEntity.of(restaurantRepository.findById(id));
     }
 
     public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id) {
-        log.info("get restaurants {} by id with menu", id);
+        log.info("get restaurants {} with menu", id);
         RestaurantTo restaurantTo = restaurantService.getWithMenu(id);
         return ResponseEntity.ok(restaurantTo);
     }

@@ -1,0 +1,374 @@
+openapi: 3.0.1
+info:
+  title: REST API documentation
+  description: |
+    Voting for restaurant application
+    <p><b>Тестовые креденшелы:</b><br>
+    - user@yandex.ru / password<br>
+    - admin@gmail.com / admin<br>
+  contact:
+    name: Tanya Naumovets
+    email: naumovets.ts@yandex.ru
+  version: '1.0'
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+security:
+  - basicAuth: []
+paths:
+  /api/vote:
+    post:
+      tags:
+        - vote-controller
+      operationId: addVote
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoteTo'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vote'
+  /api/register:
+    post:
+      tags:
+        - register-controller
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserTo'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/admin/restaurants:
+    get:
+      tags:
+        - admin-restaurant-controller
+      operationId: getAll_1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Restaurant'
+    post:
+      tags:
+        - admin-restaurant-controller
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restaurant'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+  /api/admin/menu:
+    post:
+      tags:
+        - admin-menu-controller
+      operationId: addMenu
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuTo'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+  /api/admin/dishes:
+    get:
+      tags:
+        - admin-dish-controller
+      operationId: getAll_2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dish'
+    post:
+      tags:
+        - admin-dish-controller
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dish'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+  /api/restaurants:
+    get:
+      tags:
+        - user-restaurant-controller
+      operationId: getAll
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Restaurant'
+  /api/restaurants/{id}:
+    get:
+      tags:
+        - user-restaurant-controller
+      operationId: get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+  /api/restaurants/{id}/with-menu:
+    get:
+      tags:
+        - user-restaurant-controller
+      operationId: getWithMenu
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantTo'
+  /api/admin/restaurants/{id}:
+    get:
+      tags:
+        - admin-restaurant-controller
+      operationId: get_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+  /api/admin/restaurants/{id}/with-menu:
+    get:
+      tags:
+        - admin-restaurant-controller
+      operationId: getWithMenu_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantTo'
+  /api/admin/dishes/{id}:
+    get:
+      tags:
+        - admin-dish-controller
+      operationId: get_2
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+components:
+  schemas:
+    VoteTo:
+      required:
+        - restaurantId
+      type: object
+      properties:
+        restaurantId:
+          type: integer
+          format: int32
+    Restaurant:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          maxLength: 128
+          minLength: 2
+          type: string
+    Vote:
+      required:
+        - dateVote
+      type: object
+      properties:
+        dateVote:
+          type: string
+          format: date
+        restaurant:
+          $ref: '#/components/schemas/Restaurant'
+    UserTo:
+      required:
+        - email
+        - name
+        - password
+      type: object
+      properties:
+        name:
+          maxLength: 128
+          minLength: 2
+          type: string
+        email:
+          maxLength: 128
+          minLength: 0
+          type: string
+        password:
+          maxLength: 32
+          minLength: 5
+          type: string
+    User:
+      required:
+        - email
+        - name
+        - password
+      type: object
+      properties:
+        name:
+          maxLength: 128
+          minLength: 2
+          type: string
+        email:
+          maxLength: 128
+          minLength: 0
+          type: string
+        password:
+          maxLength: 256
+          minLength: 0
+          type: string
+          writeOnly: true
+        enabled:
+          type: boolean
+        registered:
+          type: string
+          format: date-time
+          readOnly: true
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+              - USER
+              - ADMIN
+    MenuTo:
+      required:
+        - dishId
+        - restaurantId
+      type: object
+      properties:
+        restaurantId:
+          type: integer
+          format: int32
+        dishId:
+          type: integer
+          format: int32
+    Dish:
+      required:
+        - name
+        - price
+      type: object
+      properties:
+        name:
+          maxLength: 128
+          minLength: 2
+          type: string
+        price:
+          type: number
+          format: double
+    Menu:
+      type: object
+      properties:
+        restaurant:
+          $ref: '#/components/schemas/Restaurant'
+        dish:
+          $ref: '#/components/schemas/Dish'
+    RestaurantTo:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          maxLength: 128
+          minLength: 2
+          type: string
+        menuList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Menu'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

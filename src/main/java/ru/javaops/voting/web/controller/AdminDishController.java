@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,18 +29,22 @@ public class AdminDishController {
     private DishRepository dishRepository;
 
     @GetMapping
+    @Cacheable("dishes")
     public List<Dish> getAll() {
+        log.info("get all dishes");
         return dishRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Dish> get(@PathVariable int id) {
+        log.info("get dish {} ", id);
         return ResponseEntity.of(dishRepository.findById(id));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CacheEvict(value = "dishes", allEntries = true)
     public ResponseEntity<Dish> create(@Valid @RequestBody Dish dish) {
-        log.info("create dish {} ", dish);
+        log.info("create dish {} ", dish.getName());
         checkNew(dish);
         Dish created = dishRepository.save(dish);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()

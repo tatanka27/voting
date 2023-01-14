@@ -2,6 +2,8 @@ package ru.javaops.voting.web.controller.restaurant;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,7 @@ public class AdminRestaurantController extends RestaurantController {
 
     @Override
     @GetMapping
+    @Cacheable("restaurants")
     public List<Restaurant> getAll() {
         return super.getAll();
     }
@@ -39,8 +42,9 @@ public class AdminRestaurantController extends RestaurantController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CacheEvict(value = "restaurants", allEntries = true)
     public ResponseEntity<Restaurant> create(@Valid @RequestBody Restaurant restaurant) {
-        log.info("create restaurant {}", restaurant);
+        log.info("create restaurant {}", restaurant.getName());
         checkNew(restaurant);
         Restaurant created = restaurantRepository.save(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()

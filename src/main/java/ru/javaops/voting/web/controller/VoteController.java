@@ -22,7 +22,7 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping(value = VoteController.REST_URL)
+@RequestMapping(value = VoteController.REST_URL,  produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class VoteController {
