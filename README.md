@@ -1,3 +1,7 @@
+# Application for voting for a restaurant where to have lunch today
+
+Technologies used: Maven, Spring Boot 3.0, Spring Security, Hibernate, JUnit 5, Lombok, H2, Swagger/OpenAPI 3.0.
+
 ## Graduation project [TopJava](https://javaops.ru/view/topjava)
 
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) **without frontend**.
@@ -16,6 +20,12 @@ Build a voting system for deciding where to have lunch.
     - If it is after 11:00 then it is too late, vote can't be changed
 
 Each restaurant provides a new menu each day.
+
+# Run application
+
+```console
+java -jar target/voting-for-restaurant-0.0.1-SNAPSHOT.jar
+```
 
 # REST API
 

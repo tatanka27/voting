@@ -8,7 +8,7 @@
         <version>3.0.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>ru.javaops</groupId>
+    <groupId>com.github.tatanka27</groupId>
     <artifactId>voting-for-restaurant</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Voting</name>
