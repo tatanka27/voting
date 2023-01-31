@@ -1,6 +1,9 @@
 package com.github.tatanka27.voting.config;
 
+import com.github.tatanka27.voting.model.Role;
+import com.github.tatanka27.voting.model.User;
 import com.github.tatanka27.voting.repository.UserRepository;
+import com.github.tatanka27.voting.web.AuthUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +18,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import com.github.tatanka27.voting.model.Role;
-import com.github.tatanka27.voting.model.User;
-import com.github.tatanka27.voting.web.AuthUser;
 
 import java.util.Optional;
 

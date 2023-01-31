@@ -1,5 +1,7 @@
 package com.github.tatanka27.voting.web.controller.restaurant;
 
+import com.github.tatanka27.voting.model.Restaurant;
+import com.github.tatanka27.voting.repository.RestaurantRepository;
 import com.github.tatanka27.voting.service.RestaurantService;
 import com.github.tatanka27.voting.to.RestaurantTo;
 import lombok.extern.slf4j.Slf4j;
@@ -7,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.github.tatanka27.voting.model.Restaurant;
-import com.github.tatanka27.voting.repository.RestaurantRepository;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -27,13 +29,13 @@ public abstract class RestaurantController {
     }
 
     public ResponseEntity<Restaurant> get(@PathVariable int id) {
-        log.info("get restaurants {}", id);
+        log.info("get restaurant {}", id);
         return ResponseEntity.of(restaurantRepository.findById(id));
     }
 
-    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id) {
-        log.info("get restaurants {} with menu", id);
-        RestaurantTo restaurantTo = restaurantService.getWithMenu(id);
+    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id, @RequestParam LocalDate dateMenu) {
+        log.info("get restaurant {} with menu", id);
+        RestaurantTo restaurantTo = restaurantService.getWithMenu(id, dateMenu);
         return ResponseEntity.ok(restaurantTo);
     }
 }

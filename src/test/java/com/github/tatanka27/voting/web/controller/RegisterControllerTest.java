@@ -3,15 +3,15 @@ package com.github.tatanka27.voting.web.controller;
 import com.github.tatanka27.voting.data.UserTestData;
 import com.github.tatanka27.voting.model.User;
 import com.github.tatanka27.voting.repository.UserRepository;
+import com.github.tatanka27.voting.to.UserTo;
 import com.github.tatanka27.voting.util.JsonUtil;
+import com.github.tatanka27.voting.util.UsersUtil;
 import com.github.tatanka27.voting.web.UniqueMailValidator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import com.github.tatanka27.voting.to.UserTo;
-import com.github.tatanka27.voting.util.UsersUtil;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

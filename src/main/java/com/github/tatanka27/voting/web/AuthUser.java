@@ -1,8 +1,8 @@
 package com.github.tatanka27.voting.web;
 
+import com.github.tatanka27.voting.model.User;
 import lombok.Getter;
 import org.springframework.lang.NonNull;
-import com.github.tatanka27.voting.model.User;
 
 public class AuthUser extends org.springframework.security.core.userdetails.User {
 

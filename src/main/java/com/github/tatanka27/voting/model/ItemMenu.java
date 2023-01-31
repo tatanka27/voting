@@ -7,34 +7,32 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_menu", "restaurant_id", "dish_id"}, name = "menu_unique_date_rest_dish_idx")})
+@Table(name = "item_menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_menu", "dish_id"}, name = "menu_unique_date_dish_idx")})
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Menu extends BaseEntity {
+public class ItemMenu extends BaseEntity {
 
     @Column(name = "date_menu", nullable = false)
-    @NotNull
     @JsonIgnore
+    @NotNull
     private LocalDate dateMenu;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id", nullable = false)
-    @JsonIgnore
-    private Restaurant restaurant;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "dish_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
     private Dish dish;
 
-    public Menu(Integer id, LocalDate dateMenu, Restaurant restaurant, Dish dish) {
+    public ItemMenu(Integer id, LocalDate dateMenu, Dish dish) {
         super(id);
         this.dateMenu = dateMenu;
-        this.restaurant = restaurant;
         this.dish = dish;
     }
 

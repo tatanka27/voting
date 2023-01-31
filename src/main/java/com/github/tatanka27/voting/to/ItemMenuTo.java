@@ -4,18 +4,19 @@ import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
+import java.time.LocalDate;
+
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class MenuTo extends BaseTo {
-    @NotNull
-    Integer restaurantId;
+public class ItemMenuTo extends BaseTo {
 
     @NotNull
-    Integer dishId;
+    LocalDate dateMenu;
+    int dishId;
 
-    public MenuTo(Integer id, Integer restaurantId, Integer dishId) {
+    public ItemMenuTo(Integer id, int dishId, LocalDate dateMenu) {
         super(id);
-        this.restaurantId = restaurantId;
         this.dishId = dishId;
+        this.dateMenu = dateMenu;
     }
 }

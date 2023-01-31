@@ -5,6 +5,7 @@ import com.github.tatanka27.voting.data.VoteTestData;
 import com.github.tatanka27.voting.model.Vote;
 import com.github.tatanka27.voting.repository.VoteRepository;
 import com.github.tatanka27.voting.to.VoteTo;
+import com.github.tatanka27.voting.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,14 +16,13 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import com.github.tatanka27.voting.util.JsonUtil;
 
 import java.time.*;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static com.github.tatanka27.voting.data.UserTestData.USER_MAIL;
 import static com.github.tatanka27.voting.data.UserTestData.user;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class VoteControllerTest {
 

@@ -12,18 +12,18 @@ VALUES ('Трезвая утка'),
        ('Вкусно и точка'),
        ('Теремок');
 
-INSERT INTO DISH (NAME, PRICE)
-VALUES ('Салат', 100),
-       ('Курица', 200),
-       ('Брускета', 150),
-       ('Суп', 100),
-       ('Десерт', 100),
-       ('Омлет', 100);
+INSERT INTO DISH (NAME, PRICE, RESTAURANT_ID)
+VALUES ('Салат', 100, 1),
+       ('Курица', 200, 1),
+       ('Брускета', 150, 2),
+       ('Салат', 200, 2),
+       ('Десерт', 100, 2),
+       ('Омлет', 100, 3);
 
-INSERT INTO MENU (DATE_MENU, RESTAURANT_ID, DISH_ID)
-VALUES (convert(now(), date), 1, 1),
-       (convert(now(), date), 1, 2),
-       (convert(now(), date), 2, 3),
-       (convert(now(), date), 2, 4),
-       (convert('1900-01-01', date), 2, 5),
-       (convert('1900-01-01', date), 3, 6);
+INSERT INTO ITEM_MENU (DATE_MENU, DISH_ID)
+VALUES (CURRENT_DATE, 1),
+       (CURRENT_DATE, 2),
+       (CURRENT_DATE, 3),
+       (CURRENT_DATE, 4),
+       ('1900-01-01', 5),
+       ('1900-01-01', 6);

@@ -1,9 +1,9 @@
 package com.github.tatanka27.voting.web;
 
+import com.github.tatanka27.voting.util.JsonUtil;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
-import com.github.tatanka27.voting.util.JsonUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;

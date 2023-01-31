@@ -1,22 +1,23 @@
 package com.github.tatanka27.voting.web.controller;
 
 import com.github.tatanka27.voting.data.DishTestData;
+import com.github.tatanka27.voting.model.Dish;
+import com.github.tatanka27.voting.repository.DishRepository;
+import com.github.tatanka27.voting.util.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import com.github.tatanka27.voting.model.Dish;
-import com.github.tatanka27.voting.repository.DishRepository;
-import com.github.tatanka27.voting.util.JsonUtil;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static com.github.tatanka27.voting.data.RestaurantTestData.restaurant1;
 import static com.github.tatanka27.voting.data.UserTestData.ADMIN_MAIL;
 import static com.github.tatanka27.voting.data.UserTestData.USER_MAIL;
 import static com.github.tatanka27.voting.web.controller.AdminDishController.REST_URL;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AdminDishControllerTest extends AbstractControllerTest {
 
@@ -82,7 +83,7 @@ public class AdminDishControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createInvalid() throws Exception {
-        Dish invalid = new Dish(null, null, 100.0);
+        Dish invalid = new Dish(null, null, 100.0, restaurant1);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid)))
@@ -93,7 +94,7 @@ public class AdminDishControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createDuplicate() throws Exception {
-        Dish duplicate = new Dish(null, DishTestData.dish1.getName(), DishTestData.dish1.getPrice());
+        Dish duplicate = new Dish(null, DishTestData.dish1.getName(), DishTestData.dish1.getPrice(), DishTestData.dish1.getRestaurant());
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(duplicate)))

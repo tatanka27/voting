@@ -3,13 +3,12 @@ package com.github.tatanka27.voting.web.controller.restaurant;
 import com.github.tatanka27.voting.model.Restaurant;
 import com.github.tatanka27.voting.to.RestaurantTo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -20,6 +19,7 @@ public class UserRestaurantController extends RestaurantController {
 
     @Override
     @GetMapping
+    @Cacheable("restaurants")
     public List<Restaurant> getAll() {
         return super.getAll();
     }
@@ -32,7 +32,7 @@ public class UserRestaurantController extends RestaurantController {
 
     @Override
     @GetMapping("/{id}/with-menu")
-    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id) {
-        return super.getWithMenu(id);
+    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id, @RequestParam LocalDate dateMenu) {
+        return super.getWithMenu(id, dateMenu);
     }
 }

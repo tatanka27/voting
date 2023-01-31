@@ -1,26 +1,26 @@
 package com.github.tatanka27.voting.web.controller.restaurant;
 
 import com.github.tatanka27.voting.data.RestaurantTestData;
+import com.github.tatanka27.voting.model.Restaurant;
+import com.github.tatanka27.voting.repository.RestaurantRepository;
 import com.github.tatanka27.voting.to.RestaurantTo;
+import com.github.tatanka27.voting.util.JsonUtil;
+import com.github.tatanka27.voting.util.RestaurantUtil;
+import com.github.tatanka27.voting.web.controller.AbstractControllerTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import com.github.tatanka27.voting.model.Restaurant;
-import com.github.tatanka27.voting.repository.RestaurantRepository;
-import com.github.tatanka27.voting.util.JsonUtil;
-import com.github.tatanka27.voting.util.RestaurantUtil;
-import com.github.tatanka27.voting.web.controller.AbstractControllerTest;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static com.github.tatanka27.voting.data.MenuTestDate.menus2Today;
 import static com.github.tatanka27.voting.data.UserTestData.ADMIN_MAIL;
 import static com.github.tatanka27.voting.data.UserTestData.USER_MAIL;
 import static com.github.tatanka27.voting.web.controller.restaurant.AdminRestaurantController.REST_URL;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AdminRestaurantControllerTest extends AbstractControllerTest {
 

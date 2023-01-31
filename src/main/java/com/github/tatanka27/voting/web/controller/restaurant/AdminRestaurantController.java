@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.github.tatanka27.voting.util.ValidationUtil.checkNew;
@@ -37,8 +38,8 @@ public class AdminRestaurantController extends RestaurantController {
 
     @Override
     @GetMapping("/{id}/with-menu")
-    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id) {
-        return super.getWithMenu(id);
+    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id, @RequestParam LocalDate dateMenu) {
+        return super.getWithMenu(id, dateMenu);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

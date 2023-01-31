@@ -3,8 +3,8 @@ package com.github.tatanka27.voting.util;
 import com.github.tatanka27.voting.config.SecurityConfiguration;
 import com.github.tatanka27.voting.model.Role;
 import com.github.tatanka27.voting.model.User;
-import lombok.experimental.UtilityClass;
 import com.github.tatanka27.voting.to.UserTo;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class UsersUtil {

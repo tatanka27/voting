@@ -1,29 +1,29 @@
 package com.github.tatanka27.voting.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import com.github.tatanka27.voting.model.Menu;
+import com.github.tatanka27.voting.model.ItemMenu;
 import com.github.tatanka27.voting.model.Restaurant;
-import com.github.tatanka27.voting.repository.MenuRepository;
+import com.github.tatanka27.voting.repository.ItemMenuRepository;
 import com.github.tatanka27.voting.repository.RestaurantRepository;
 import com.github.tatanka27.voting.to.RestaurantTo;
 import com.github.tatanka27.voting.util.RestaurantUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RestaurantService {
 
-    private final MenuRepository menuRepository;
+    private final ItemMenuRepository menuRepository;
     private final RestaurantRepository restaurantRepository;
-    private final Clock clock;
 
-    public RestaurantTo getWithMenu(int id) {
+    @Transactional
+    public RestaurantTo getWithMenu(int id, LocalDate dateMenu) {
         Restaurant restaurant = restaurantRepository.getExisted(id);
-        List<Menu> menu = menuRepository.getMenusByRestaurant_IdAndDateMenu(id, LocalDate.now(clock));
+        List<ItemMenu> menu = menuRepository.getMenuByRestaurant_IdAndDateMenu(id, dateMenu);
 
         return RestaurantUtil.createTo(restaurant, menu);
     }

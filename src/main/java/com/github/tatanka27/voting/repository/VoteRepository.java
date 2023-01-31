@@ -1,8 +1,8 @@
 package com.github.tatanka27.voting.repository;
 
+import com.github.tatanka27.voting.model.Vote;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.github.tatanka27.voting.model.Vote;
 
 import java.time.LocalDate;
 import java.util.Optional;
