@@ -12,9 +12,10 @@ public class ItemMenuTo extends BaseTo {
 
     @NotNull
     LocalDate dateMenu;
-    int dishId;
+    @NotNull
+    Integer dishId;
 
-    public ItemMenuTo(Integer id, int dishId, LocalDate dateMenu) {
+    public ItemMenuTo(Integer id, Integer dishId, LocalDate dateMenu) {
         super(id);
         this.dishId = dishId;
         this.dateMenu = dateMenu;

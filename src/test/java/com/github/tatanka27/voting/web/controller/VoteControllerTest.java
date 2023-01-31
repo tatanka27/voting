@@ -31,7 +31,7 @@ public class VoteControllerTest {
         @Autowired
         VoteRepository voteRepository;
 
-        @Qualifier("ClockBefore11")
+        @Qualifier("clockBefore11")
         @Autowired
         Clock clock;
 
@@ -95,7 +95,7 @@ public class VoteControllerTest {
         @TestConfiguration
         static class TesClockConfig {
 
-            @Bean("ClockBefore11")
+            @Bean("clockBefore11")
             @Primary
             public Clock fixedClock() {
                 LocalTime time = LocalTime.parse("10:00");

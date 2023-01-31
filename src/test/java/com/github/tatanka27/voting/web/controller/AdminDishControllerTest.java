@@ -11,6 +11,9 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.github.tatanka27.voting.data.DishTestData.dish1;
+import static com.github.tatanka27.voting.data.DishTestData.dishes1;
+import static com.github.tatanka27.voting.data.RestaurantTestData.RESTAURANT1_ID;
 import static com.github.tatanka27.voting.data.RestaurantTestData.restaurant1;
 import static com.github.tatanka27.voting.data.UserTestData.ADMIN_MAIL;
 import static com.github.tatanka27.voting.data.UserTestData.USER_MAIL;
@@ -21,55 +24,56 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AdminDishControllerTest extends AbstractControllerTest {
 
+    private static final String REST_URL_SLASH = REST_URL + '/';
     @Autowired
     DishRepository dishRepository;
 
     @Test
     void getUnauthorized() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL, RESTAURANT1_ID))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getForbidden() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL, RESTAURANT1_ID))
                 .andExpect(status().isForbidden());
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void getNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "/" + DishTestData.DISH_NOT_FOUND_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + DishTestData.DISH_NOT_FOUND_ID, RESTAURANT1_ID))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+    void getAllByRestaurantId() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL, RESTAURANT1_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(DishTestData.DISH_MATCHER.contentJson(DishTestData.dishes));
+                .andExpect(DishTestData.DISH_MATCHER.contentJson(dishes1));
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "/" + DishTestData.DISH3_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + DishTestData.DISH1_ID, RESTAURANT1_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(DishTestData.DISH_MATCHER.contentJson(DishTestData.dish3));
+                .andExpect(DishTestData.DISH_MATCHER.contentJson(dish1));
     }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void create() throws Exception {
         Dish newDish = DishTestData.getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL, RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newDish)));
 
@@ -84,7 +88,7 @@ public class AdminDishControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = ADMIN_MAIL)
     void createInvalid() throws Exception {
         Dish invalid = new Dish(null, null, 100.0, restaurant1);
-        perform(MockMvcRequestBuilders.post(REST_URL)
+        perform(MockMvcRequestBuilders.post(REST_URL, RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid)))
                 .andDo(print())
@@ -94,8 +98,8 @@ public class AdminDishControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createDuplicate() throws Exception {
-        Dish duplicate = new Dish(null, DishTestData.dish1.getName(), DishTestData.dish1.getPrice(), DishTestData.dish1.getRestaurant());
-        perform(MockMvcRequestBuilders.post(REST_URL)
+        Dish duplicate = new Dish(null, dish1.getName(), dish1.getPrice(), dish1.getRestaurant());
+        perform(MockMvcRequestBuilders.post(REST_URL, RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(duplicate)))
                 .andDo(print())

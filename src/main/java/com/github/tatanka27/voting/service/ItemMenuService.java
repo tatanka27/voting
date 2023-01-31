@@ -40,7 +40,7 @@ public class ItemMenuService {
         ItemMenu menu = itemMenuRepository.getItemMenu(dishId, dateMenu).orElse(null);
 
         if (menu != null) {
-            throw new AppException(HttpStatus.BAD_REQUEST,
+            throw new AppException(HttpStatus.UNPROCESSABLE_ENTITY,
                     "Dish id=" + dishId + " has already added for date=" + dateMenu);
         }
     }

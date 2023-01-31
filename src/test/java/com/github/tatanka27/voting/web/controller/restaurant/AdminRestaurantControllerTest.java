@@ -14,7 +14,9 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.github.tatanka27.voting.data.MenuTestDate.menus2Today;
+import java.time.LocalDate;
+
+import static com.github.tatanka27.voting.data.MenuTestData.menu2Today;
 import static com.github.tatanka27.voting.data.UserTestData.ADMIN_MAIL;
 import static com.github.tatanka27.voting.data.UserTestData.USER_MAIL;
 import static com.github.tatanka27.voting.web.controller.restaurant.AdminRestaurantController.REST_URL;
@@ -74,8 +76,9 @@ public class AdminRestaurantControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void getWithMenu() throws Exception {
-        RestaurantTo restaurantTo = RestaurantUtil.createTo(RestaurantTestData.restaurant2, menus2Today);
-        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + RestaurantTestData.RESTAURANT2_ID + "/with-menu"))
+        RestaurantTo restaurantTo = RestaurantUtil.createTo(RestaurantTestData.restaurant2, menu2Today);
+        perform(MockMvcRequestBuilders.get(REST_URL_SLASH + RestaurantTestData.RESTAURANT2_ID + "/with-menu")
+                .param("dateMenu", LocalDate.now().toString()))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

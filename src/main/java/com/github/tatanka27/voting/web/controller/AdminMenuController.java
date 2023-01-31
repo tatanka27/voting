@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.time.LocalDate;
 
 import static com.github.tatanka27.voting.util.ValidationUtil.checkNew;
 
@@ -33,7 +32,7 @@ public class AdminMenuController {
         ItemMenu created = itemMenuService.create(itemMenuTo, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{itemMenuId}")
-                .buildAndExpand(created.getId()).toUri();
+                .buildAndExpand(restaurantId, created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 }

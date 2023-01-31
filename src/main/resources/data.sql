@@ -22,7 +22,6 @@ VALUES ('Салат', 100, 1),
 
 INSERT INTO ITEM_MENU (DATE_MENU, DISH_ID)
 VALUES (CURRENT_DATE, 1),
-       (CURRENT_DATE, 2),
        (CURRENT_DATE, 3),
        (CURRENT_DATE, 4),
        ('1900-01-01', 5),
