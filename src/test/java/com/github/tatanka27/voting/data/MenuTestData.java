@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class MenuTestData {
-
     public static final MatcherFactory.Matcher<ItemMenu> MENU_MATCHER =
             MatcherFactory.usingEqualsComparator(ItemMenu.class);
 

@@ -32,7 +32,7 @@ public class UserRestaurantController extends RestaurantController {
 
     @Override
     @GetMapping("/{id}/with-menu")
-    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id, @RequestParam LocalDate dateMenu) {
+    public RestaurantTo getWithMenu(@PathVariable int id, @RequestParam LocalDate dateMenu) {
         return super.getWithMenu(id, dateMenu);
     }
 }

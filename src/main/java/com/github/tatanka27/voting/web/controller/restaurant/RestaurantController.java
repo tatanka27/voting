@@ -33,9 +33,9 @@ public abstract class RestaurantController {
         return ResponseEntity.of(restaurantRepository.findById(id));
     }
 
-    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id, @RequestParam LocalDate dateMenu) {
+    public RestaurantTo getWithMenu(@PathVariable int id, @RequestParam LocalDate dateMenu) {
         log.info("get restaurant {} with menu", id);
         RestaurantTo restaurantTo = restaurantService.getWithMenu(id, dateMenu);
-        return ResponseEntity.ok(restaurantTo);
+        return restaurantTo;
     }
 }

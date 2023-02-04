@@ -9,7 +9,6 @@ import java.util.List;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class RestaurantTo extends NamedTo {
-
     List<ItemMenu> menu;
 
     public RestaurantTo(Integer id, String name, List<ItemMenu> menu) {

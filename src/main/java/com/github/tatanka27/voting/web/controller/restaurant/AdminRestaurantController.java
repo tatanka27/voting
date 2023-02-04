@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.github.tatanka27.voting.util.ValidationUtil.assureIdConsistent;
 import static com.github.tatanka27.voting.util.ValidationUtil.checkNew;
 
 @RestController
@@ -38,7 +40,7 @@ public class AdminRestaurantController extends RestaurantController {
 
     @Override
     @GetMapping("/{id}/with-menu")
-    public ResponseEntity<RestaurantTo> getWithMenu(@PathVariable int id, @RequestParam LocalDate dateMenu) {
+    public RestaurantTo getWithMenu(@PathVariable int id, @RequestParam LocalDate dateMenu) {
         return super.getWithMenu(id, dateMenu);
     }
 
@@ -52,5 +54,22 @@ public class AdminRestaurantController extends RestaurantController {
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CacheEvict(value = "restaurants", allEntries = true)
+    public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id) {
+        log.info("update restaurant {}", restaurant.getName());
+        assureIdConsistent(restaurant, id);
+        restaurantRepository.save(restaurant);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CacheEvict(value = "restaurants", allEntries = true)
+    public void delete(@PathVariable int id) {
+        log.info("delete restaurant {}", id);
+        restaurantRepository.deleteExisted(id);
     }
 }

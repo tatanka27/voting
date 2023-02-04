@@ -6,13 +6,19 @@ import com.github.tatanka27.voting.web.MatcherFactory;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class RestaurantTestData {
-
     public static final MatcherFactory.Matcher<Restaurant> RESTAURANT_MATCHER =
-            MatcherFactory.usingEqualsComparator(Restaurant.class);
+            MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dishes");
 
-    public static final MatcherFactory.Matcher<RestaurantTo> RESTAURANT_WITH_MENU_MATCHER =
-            MatcherFactory.usingEqualsComparator(RestaurantTo.class);
+    public static MatcherFactory.Matcher<RestaurantTo> RESTAURANT_WITH_MENU_MATCHER =
+            MatcherFactory.usingAssertions(RestaurantTo.class,
+                    (a, e) -> assertThat(a).usingRecursiveComparison()
+                            .ignoringFields("menu.dish.restaurant", "menu.dateMenu").isEqualTo(e),
+                    (a, e) -> {
+                        throw new UnsupportedOperationException();
+                    });
 
     public static final int RESTAURANT1_ID = 1;
     public static final int RESTAURANT2_ID = 2;
@@ -22,7 +28,6 @@ public class RestaurantTestData {
 
     public static Restaurant restaurant1 = new Restaurant(RESTAURANT1_ID, "Трезвая утка");
     public static Restaurant restaurant2 = new Restaurant(RESTAURANT2_ID, "Сытый гусь");
-    public static Restaurant restaurant2WithMenuToday = new Restaurant(RESTAURANT2_ID, "Сытый гусь");
     public static Restaurant restaurant3 = new Restaurant(RESTAURANT3_ID, "Вкусно и точка");
     public static Restaurant restaurant4 = new Restaurant(RESTAURANT4_ID, "Теремок");
 
@@ -30,6 +35,10 @@ public class RestaurantTestData {
 
 
     public static Restaurant getNew() {
-        return new Restaurant(null, "New");
+        return new Restaurant(null, "Новый ресторан");
+    }
+
+    public static Restaurant getUpdated() {
+        return new Restaurant(RESTAURANT1_ID, "Обновленный ресторан");
     }
 }

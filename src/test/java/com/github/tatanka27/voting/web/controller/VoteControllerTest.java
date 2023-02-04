@@ -122,7 +122,7 @@ public class VoteControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(JsonUtil.writeValue(newTo2)))
                     .andDo(print())
-                    .andExpect(status().isBadRequest());
+                    .andExpect(status().isConflict());
         }
 
         @TestConfiguration

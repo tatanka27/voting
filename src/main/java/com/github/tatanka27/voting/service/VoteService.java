@@ -1,6 +1,6 @@
 package com.github.tatanka27.voting.service;
 
-import com.github.tatanka27.voting.error.AppException;
+import com.github.tatanka27.voting.error.IllegalRequestDataException;
 import com.github.tatanka27.voting.model.Restaurant;
 import com.github.tatanka27.voting.model.User;
 import com.github.tatanka27.voting.model.Vote;
@@ -8,7 +8,6 @@ import com.github.tatanka27.voting.repository.RestaurantRepository;
 import com.github.tatanka27.voting.repository.UserRepository;
 import com.github.tatanka27.voting.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +41,7 @@ public class VoteService {
         Vote vote = voteRepository.findByUserIdAndDateVote(userId, dateTime.toLocalDate()).orElse(null);
         if (vote != null) {
             if (dateTime.getHour() > CAN_REVOTE_BEFORE) {
-                throw new AppException(HttpStatus.BAD_REQUEST, "You have already voted!");
+                throw new IllegalRequestDataException("You can't change your voice after 11 a.m.");
             }
         }
         return vote;
