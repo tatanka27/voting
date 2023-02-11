@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "item_menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_menu", "dish_id"}, name = "menu_unique_date_dish_idx")})
@@ -24,7 +25,7 @@ public class ItemMenu extends BaseEntity {
     @NotNull
     private LocalDate dateMenu;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dish_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull

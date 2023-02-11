@@ -12,7 +12,7 @@ import lombok.Setter;
 @Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "restaurant_id"}, name = "dish_unique_name_rest_idx")})
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Dish extends NamedEntity {
     @Column(name = "price", nullable = false)
     private double price;

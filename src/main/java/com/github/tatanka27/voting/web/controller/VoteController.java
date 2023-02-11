@@ -45,6 +45,7 @@ public class VoteController {
     public ResponseEntity<Vote> get(@AuthenticationPrincipal AuthUser authUser, @PathVariable int id) {
         log.info("get vote {}", id);
         int userId = authUser.getUser().id();
+        voteRepository.getExistedOrBelonged(id, userId);
         return ResponseEntity.of(voteRepository.get(id, userId));
     }
 

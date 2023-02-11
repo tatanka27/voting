@@ -21,6 +21,11 @@ public class Restaurant extends NamedEntity {
     @OrderBy("name DESC")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Dish> dishes;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Vote> votes;
+
     public Restaurant(Integer id, String name) {
         super(id, name);
     }

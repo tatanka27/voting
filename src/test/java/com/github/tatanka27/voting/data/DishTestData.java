@@ -1,16 +1,23 @@
 package com.github.tatanka27.voting.data;
 
 import com.github.tatanka27.voting.model.Dish;
+import com.github.tatanka27.voting.model.Vote;
 import com.github.tatanka27.voting.web.MatcherFactory;
 
 import java.util.List;
 
 import static com.github.tatanka27.voting.data.RestaurantTestData.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class DishTestData {
 
-    public static final MatcherFactory.Matcher<Dish> DISH_MATCHER =
-            MatcherFactory.usingEqualsComparator(Dish.class);
+    public static MatcherFactory.Matcher<Dish> DISH_MATCHER =
+            MatcherFactory.usingAssertions(Dish.class,
+                    (a, e) -> assertThat(a).usingRecursiveComparison()
+                            .ignoringFields("restaurant.dishes").isEqualTo(e),
+                    (a, e) -> {
+                        throw new UnsupportedOperationException();
+                    });
 
     public static final int DISH1_ID = 1;
     public static final int DISH2_ID = 2;
