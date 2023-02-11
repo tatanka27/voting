@@ -17,11 +17,10 @@ import java.util.List;
 @Table(name = "item_menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_menu", "dish_id"}, name = "menu_unique_date_dish_idx")})
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class ItemMenu extends BaseEntity {
 
     @Column(name = "date_menu", nullable = false)
-    @JsonIgnore
     @NotNull
     private LocalDate dateMenu;
 

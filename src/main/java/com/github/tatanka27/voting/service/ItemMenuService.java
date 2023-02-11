@@ -1,12 +1,9 @@
 package com.github.tatanka27.voting.service;
 
-import com.github.tatanka27.voting.error.DataConflictException;
 import com.github.tatanka27.voting.model.Dish;
 import com.github.tatanka27.voting.model.ItemMenu;
-import com.github.tatanka27.voting.model.Restaurant;
 import com.github.tatanka27.voting.repository.DishRepository;
 import com.github.tatanka27.voting.repository.ItemMenuRepository;
-import com.github.tatanka27.voting.repository.RestaurantRepository;
 import com.github.tatanka27.voting.to.ItemMenuTo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,18 +13,24 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ItemMenuService {
     private final ItemMenuRepository itemMenuRepository;
-    private final RestaurantRepository restaurantRepository;
     private final DishRepository dishRepository;
 
     @Transactional
-    public ItemMenu create(ItemMenuTo itemMenuTo, int restaurantId) {
+    public ItemMenu save(ItemMenuTo itemMenuTo) {
         Dish dish = dishRepository.getExisted(itemMenuTo.getDishId());
-        Restaurant restaurant = restaurantRepository.getExisted(dish.getRestaurant().getId());
+        ItemMenu itemMenu = get(itemMenuTo.getId());
 
-        if (restaurant.getId() != restaurantId) {
-            throw new DataConflictException("Dish id=" + dish.getId() + " doesn't belong to the restaurant=" + restaurantId);
+        itemMenu.setDish(dish);
+        itemMenu.setDateMenu(itemMenuTo.getDateMenu());
+
+        return itemMenuRepository.save(itemMenu);
+    }
+
+    private ItemMenu get(Integer id) {
+        if (id != null) {
+            return itemMenuRepository.getExisted(id);
+        } else {
+            return new ItemMenu();
         }
-
-        return itemMenuRepository.save(new ItemMenu(null, itemMenuTo.getDateMenu(), dish));
     }
 }

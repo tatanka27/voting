@@ -37,18 +37,18 @@ public class AdminMenuControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void create() throws Exception {
-        ItemMenuTo itemMenuTo = new ItemMenuTo(null, DISH2_ID, LocalDate.now());
-        ItemMenu itemMenu = new ItemMenu(null, LocalDate.now(), dish2);
+        ItemMenuTo newTo = new ItemMenuTo(null, DISH2_ID, LocalDate.now());
+        ItemMenu newItemMenu = new ItemMenu(null, newTo.getDateMenu(), dish2);
 
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL, RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(itemMenuTo)));
+                .content(JsonUtil.writeValue(newTo)));
 
         ItemMenu created = MENU_MATCHER.readFromJson(action);
         int newId = created.id();
-        itemMenu.setId(newId);
-        MENU_MATCHER.assertMatch(created, itemMenu);
-        MENU_MATCHER.assertMatch(menuRepository.getExisted(newId), itemMenu);
+        newItemMenu.setId(newId);
+        MENU_MATCHER.assertMatch(created, newItemMenu);
+        MENU_MATCHER.assertMatch(menuRepository.getExisted(newId), newItemMenu);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class AdminMenuControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createInvalid() throws Exception {
-        ItemMenuTo invalid = new ItemMenuTo(null,  null, LocalDate.now());
+        ItemMenuTo invalid = new ItemMenuTo(null, null, LocalDate.now());
         perform(MockMvcRequestBuilders.post(REST_URL, RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid)))

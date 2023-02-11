@@ -25,7 +25,7 @@ public class RestaurantService {
     public RestaurantTo getWithMenu(int restaurantsId, LocalDate dateMenu) {
         Assert.notNull(dateMenu, "dateMenu must not be null");
         Restaurant restaurant = restaurantRepository.getExisted(restaurantsId);
-        List<ItemMenu> menu = menuRepository.getMenuByRestaurant_IdAndDateMenu(restaurantsId, dateMenu);
+        List<ItemMenu> menu = menuRepository.getMenuByRestaurantIdAndDateMenu(restaurantsId, dateMenu);
 
         return RestaurantUtil.createTo(restaurant, menu);
     }

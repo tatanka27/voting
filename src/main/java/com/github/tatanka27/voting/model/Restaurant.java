@@ -1,5 +1,6 @@
 package com.github.tatanka27.voting.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,10 +21,12 @@ public class Restaurant extends NamedEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("name DESC")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<Dish> dishes;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<Vote> votes;
 
     public Restaurant(Integer id, String name) {
