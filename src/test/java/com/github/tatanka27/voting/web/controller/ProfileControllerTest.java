@@ -13,42 +13,37 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.github.tatanka27.voting.data.UserTestData.USER_MATCHER;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class RegisterControllerTest extends AbstractControllerTest {
+public class ProfileControllerTest extends AbstractControllerTest {
     @Autowired
     private UserRepository userRepository;
-
-    @Test
-    void getUnauthorized() throws Exception {
-        perform(MockMvcRequestBuilders.get(RegisterController.REST_URL))
-                .andExpect(status().isUnauthorized());
-    }
 
     @Test
     void register() throws Exception {
         UserTo newTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword");
         User newUser = UsersUtil.createNewFromTo(newTo);
-        ResultActions action = perform(MockMvcRequestBuilders.post(RegisterController.REST_URL)
+        ResultActions action = perform(MockMvcRequestBuilders.post(ProfileController.REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newTo)))
                 .andDo(print())
                 .andExpect(status().isCreated());
 
-        User created = UserTestData.USER_MATCHER.readFromJson(action);
+        User created = USER_MATCHER.readFromJson(action);
         int newId = created.id();
         newUser.setId(newId);
-        UserTestData.USER_MATCHER.assertMatch(created, newUser);
-        UserTestData.USER_MATCHER.assertMatch(userRepository.getExisted(newId), newUser);
+        USER_MATCHER.assertMatch(created, newUser);
+        USER_MATCHER.assertMatch(userRepository.getExisted(newId), newUser);
     }
 
     @Test
     void registerInvalid() throws Exception {
         UserTo newTo = new UserTo(null, null, null, null);
-        perform(MockMvcRequestBuilders.post(RegisterController.REST_URL)
+        perform(MockMvcRequestBuilders.post(ProfileController.REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newTo)))
                 .andDo(print())
@@ -58,7 +53,7 @@ public class RegisterControllerTest extends AbstractControllerTest {
     @Test
     void registerDuplicate() throws Exception {
         UserTo newTo = new UserTo(null, "newName", UserTestData.ADMIN_MAIL, "newPassword");
-        perform(MockMvcRequestBuilders.post(RegisterController.REST_URL)
+        perform(MockMvcRequestBuilders.post(ProfileController.REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newTo)))
                 .andDo(print())

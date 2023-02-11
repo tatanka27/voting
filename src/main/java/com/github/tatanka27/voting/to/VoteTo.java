@@ -7,7 +7,6 @@ import lombok.Value;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class VoteTo extends BaseTo {
-
     @NotNull
     Integer restaurantId;
 

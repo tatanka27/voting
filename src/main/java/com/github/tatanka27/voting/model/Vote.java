@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_vote", "user_id"}, name = "vote_unique_date_user_idx")})
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Vote extends BaseEntity {
     @Column(name = "date_vote", nullable = false)
     @NotNull

@@ -35,7 +35,6 @@ public abstract class RestaurantController {
 
     public RestaurantTo getWithMenu(@PathVariable int id, @RequestParam LocalDate dateMenu) {
         log.info("get restaurant {} with menu", id);
-        RestaurantTo restaurantTo = restaurantService.getWithMenu(id, dateMenu);
-        return restaurantTo;
+        return restaurantService.getWithMenu(id, dateMenu);
     }
 }

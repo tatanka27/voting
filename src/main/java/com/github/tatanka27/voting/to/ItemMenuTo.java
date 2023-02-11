@@ -9,7 +9,6 @@ import java.time.LocalDate;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class ItemMenuTo extends BaseTo {
-
     @NotNull
     LocalDate dateMenu;
     @NotNull

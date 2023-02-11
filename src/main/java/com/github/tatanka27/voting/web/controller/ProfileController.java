@@ -20,11 +20,11 @@ import java.net.URI;
 import static com.github.tatanka27.voting.util.ValidationUtil.checkNew;
 
 @RestController
-@RequestMapping(value = RegisterController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = ProfileController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @Slf4j
-public class RegisterController {
-    static final String REST_URL = "/api/register";
+public class ProfileController {
+    static final String REST_URL = "/api/profile";
 
 
     private final UserRepository repository;
