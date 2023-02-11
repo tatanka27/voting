@@ -7,6 +7,7 @@ import lombok.Value;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class DishTo extends NamedTo {
+
     @NotNull
     Double price;
 

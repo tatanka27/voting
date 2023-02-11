@@ -13,8 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
 
-import static com.github.tatanka27.voting.data.DishTestData.DISH2_ID;
-import static com.github.tatanka27.voting.data.DishTestData.dish2;
+import static com.github.tatanka27.voting.data.DishTestData.*;
 import static com.github.tatanka27.voting.data.MenuTestData.MENU_MATCHER;
 import static com.github.tatanka27.voting.data.MenuTestData.itemMenu1;
 import static com.github.tatanka27.voting.data.RestaurantTestData.RESTAURANT1_ID;
@@ -65,7 +64,7 @@ public class AdminMenuControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createInvalid() throws Exception {
-        ItemMenuTo invalid = new ItemMenuTo(null, null, LocalDate.now());
+        ItemMenuTo invalid = new ItemMenuTo(null, DISH1_ID, null);
         perform(MockMvcRequestBuilders.post(REST_URL, RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid)))

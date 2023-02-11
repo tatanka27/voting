@@ -1,9 +1,7 @@
 package com.github.tatanka27.voting.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +9,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "item_menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_menu", "dish_id"}, name = "menu_unique_date_dish_idx")})

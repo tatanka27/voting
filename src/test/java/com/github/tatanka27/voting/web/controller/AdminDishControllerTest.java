@@ -46,7 +46,7 @@ public class AdminDishControllerTest extends AbstractControllerTest {
     void getNotFound() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL_SLASH + DishTestData.DISH_NOT_FOUND_ID, RESTAURANT1_ID))
                 .andDo(print())
-                .andExpect(status().isConflict());
+                .andExpect(status().isNotFound());
     }
 
     @Test

@@ -1,6 +1,5 @@
 package com.github.tatanka27.voting.data;
 
-import com.github.tatanka27.voting.model.Dish;
 import com.github.tatanka27.voting.model.ItemMenu;
 import com.github.tatanka27.voting.web.MatcherFactory;
 
@@ -14,7 +13,7 @@ public class MenuTestData {
     public static MatcherFactory.Matcher<ItemMenu> MENU_MATCHER =
             MatcherFactory.usingAssertions(ItemMenu.class,
                     (a, e) -> assertThat(a).usingRecursiveComparison()
-                            .ignoringFields("dish.restaurant").isEqualTo(e),
+                            .ignoringFields("dish.restaurant", "dish.itemMenuList").isEqualTo(e),
                     (a, e) -> {
                         throw new UnsupportedOperationException();
                     });

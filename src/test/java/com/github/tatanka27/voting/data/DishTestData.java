@@ -1,7 +1,6 @@
 package com.github.tatanka27.voting.data;
 
 import com.github.tatanka27.voting.model.Dish;
-import com.github.tatanka27.voting.model.Vote;
 import com.github.tatanka27.voting.web.MatcherFactory;
 
 import java.util.List;
